@@ -45,7 +45,8 @@ export default (rootReducer, rootSaga) => {
     enhancers.push(autoRehydrate({log: true}))
   }
 
-  const store = createStore(rootReducer, compose(...enhancers))
+  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+  const store = createStore(rootReducer, composeEnhancers(...enhancers))
 
   // configure persistStore and check reducer version number
   if (ReduxPersist.active) {
